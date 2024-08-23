@@ -1,5 +1,4 @@
-import "./sass/_variables.scss";
-import "./sass/_mixins.scss";
+import "./sass/main.scss";
 
 import { createApp } from "vue";
 import { createPinia } from "pinia";
