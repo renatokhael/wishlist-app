@@ -1,15 +1,14 @@
-// test/products.test.js
-const express = require("express");
-const http = require("http");
-const fs = require("fs");
-const path = require("path");
-const productsRoute = require("../../routes/products");
+import express from "express";
+import http from "http";
+import fs from "fs";
+import path from "path";
+import productsRoute from "../../routes/products";
 
 const app = express();
 app.use("/api/products", productsRoute);
 
 describe("Products API", () => {
-  let server;
+  let server: http.Server;
 
   // Inicia o servidor antes de cada teste
   beforeAll((done) => {

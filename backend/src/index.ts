@@ -1,7 +1,8 @@
-const express = require("express");
-const app = express();
-const productsRoute = require("./routes/products");
+import express from "express";
 
+import productsRoute from "./routes/products";
+
+const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
