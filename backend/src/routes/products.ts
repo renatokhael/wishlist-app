@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import path from "path";
-import fs from "fs";
+import fs from "fs/promises";
 
 interface ProductDetails {
   name: string;
@@ -22,26 +22,24 @@ interface Product {
 
 const router = express.Router();
 
-// Caminho para o arquivo mock-products.json
 const dataPath = path.join(__dirname, "../data/mock-products.json");
 
-// Rota para listar os produtos
-router.get("/", (req: Request, res: Response) => {
-  fs.readFile(dataPath, "utf8", (err, data) => {
-    if (err) {
-      return res
-        .status(500)
-        .json({ error: "Erro ao ler o arquivo de produtos." });
-    }
-    try {
-      const products: Product[] = JSON.parse(data);
-      res.json(products);
-    } catch (parseError) {
-      res
-        .status(500)
-        .json({ error: "Erro ao processar os dados do arquivo de produtos." });
-    }
-  });
+const readProductsFromFile = async (): Promise<Product[]> => {
+  try {
+    const data = await fs.readFile(dataPath, "utf8");
+    return JSON.parse(data) as Product[];
+  } catch (err) {
+    throw new Error("Erro ao ler ou processar o arquivo de produtos.");
+  }
+};
+
+router.get("/", async (req: Request, res: Response) => {
+  try {
+    const products = await readProductsFromFile();
+    res.json(products);
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 export default router;

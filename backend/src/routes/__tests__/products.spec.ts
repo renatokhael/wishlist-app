@@ -10,12 +10,10 @@ app.use("/api/products", productsRoute);
 describe("Products API", () => {
   let server: http.Server;
 
-  // Inicia o servidor antes de cada teste
   beforeAll((done) => {
     server = app.listen(4000, done);
   });
 
-  // Fecha o servidor após cada teste
   afterAll((done) => {
     server.close(done);
   });
@@ -33,14 +31,13 @@ describe("Products API", () => {
         expect(res.statusCode).toBe(200);
         expect(response).toBeInstanceOf(Object);
         expect(response.products).toBeInstanceOf(Array);
-        expect(response.products.length).toBe(8); // Supondo que há 8 produtos
+        expect(response.products.length).toBe(8);
         done();
       });
     });
   });
 
   it("Deve retornar erro ao tentar acessar produtos sem o arquivo de dados", (done) => {
-    // Simulando a ausência do arquivo
     const dataPath = path.join(__dirname, "../../data/mock-products.json");
     const backupPath = `${dataPath}.bak`;
 
@@ -58,7 +55,6 @@ describe("Products API", () => {
         expect(res.statusCode).toBe(500);
         expect(response).toHaveProperty("error");
 
-        // Restaurando o arquivo
         fs.renameSync(backupPath, dataPath);
         done();
       });
