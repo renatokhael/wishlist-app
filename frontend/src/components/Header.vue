@@ -6,7 +6,7 @@
     <nav class="nav">
       <router-link to="/wishlist" class="wishlist-link">
         <img src="@/assets/icons/heart-icon.svg" width="22" />
-        Wishlist <span v-if="wishlistCount > 0">({{ wishlistCount }})</span>
+        Wishlist <span v-if="wishlistCount > 0">{{ wishlistCount }}</span>
       </router-link>
       <div class="dropdown">
         <img src="@/assets/icons/person-icon.svg" width="36" />

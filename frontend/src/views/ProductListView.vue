@@ -3,9 +3,9 @@
   <div class="grid-container">
     <ProductCard
       v-for="product in products"
-      :key="product.id"
-      :title="product.title"
-      :price="product.price"
+      :key="product.code"
+      :title="product.details.name"
+      :price="product.priceInCents"
       :image="product.image"
     />
   </div>
@@ -16,11 +16,31 @@ import { ref, onMounted } from "vue";
 import ProductCard from "../components/ProductCard.vue";
 import { getData } from "../api/httpInstance";
 
-const products = ref([]);
+interface ProductDetails {
+  name: string;
+  description: string;
+}
+
+interface Product {
+  code: string;
+  name: string;
+  available: boolean;
+  visible: boolean;
+  details: ProductDetails;
+  priceInCents: number; // Modificado para number
+  salePriceInCents: number; // Modificado para number
+  rating: number;
+  image: string;
+  stockAvailable: boolean;
+}
+
+const products = ref<Product[]>([]);
+
+// Função para formatar o preço de centavos para reais
 
 const fetchProducts = async () => {
   try {
-    const data = await getData("/products");
+    const data: Product[] = await getData("/products");
     console.log("Products:", data);
     products.value = data;
   } catch (error) {
