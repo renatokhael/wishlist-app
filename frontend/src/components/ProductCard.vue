@@ -1,26 +1,30 @@
 <template>
   <div class="product-card">
     <div class="image-container">
-      <img :src="image" :alt="title" class="product-image" />
+      <img :src="product.image" :alt="product.name" class="product-image" />
       <button
         :class="[
           'wishlist-button',
           { 'wishlist-button--active': isAddedToWishlist },
         ]"
-        @click="addToWishlist"
+        @click="toggleWishlist"
       >
         <img src="@/assets/icons/heart-icon.svg" width="20" />
       </button>
     </div>
     <div class="product-details">
-      <h3 class="product-title">{{ title }}</h3>
+      <h3 class="product-title">{{ product.name }}</h3>
       <div class="product-rating">
         <span>★★★★★</span>
-        <span class="rating-count">50</span>
+        <span class="rating-count">{{ product.rating }}</span>
       </div>
       <div class="product-pricing">
-        <span class="original-price">R$ 299,00</span>
-        <span class="discounted-price">R$ {{ formatPrice(price) }}</span>
+        <span class="original-price"
+          >R$ {{ formatPrice(product.priceInCents) }}</span
+        >
+        <span class="discounted-price"
+          >R$ {{ formatPrice(product.salePriceInCents) }}</span
+        >
       </div>
     </div>
   </div>
@@ -29,28 +33,26 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { defineProps } from "vue";
-import { useWishlistStore } from "../stores/useWishlistStore"; // Importando a store
+import { useWishlistStore } from "@/stores/useWishlistStore";
 import { formatPrice } from "@/utils/formatPrice";
+import type { Product } from "@/api/interface";
 
-// Definindo as props
-const props = defineProps({
-  id: Number,
-  title: String,
-  price: { type: Number, default: 0 },
-  image: String,
-});
+const props = defineProps<{
+  product: Product;
+}>();
 
 const wishlistStore = useWishlistStore();
 
-const isAddedToWishlist = ref(false);
+const isAddedToWishlist = ref(
+  wishlistStore.wishlist.some((item) => item.code === props.product.code)
+);
 
-const addToWishlist = () => {
-  wishlistStore.addProduct({
-    id: props.id,
-    title: props.title,
-    price: props.price,
-    image: props.image,
-  });
-  isAddedToWishlist.value = true;
+const toggleWishlist = () => {
+  if (isAddedToWishlist.value) {
+    wishlistStore.removeProduct(props.product.code);
+  } else {
+    wishlistStore.addProduct(props.product);
+  }
+  isAddedToWishlist.value = !isAddedToWishlist.value;
 };
 </script>

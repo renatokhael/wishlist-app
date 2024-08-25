@@ -1,13 +1,13 @@
 <template>
-  <h1>ProductListView</h1>
-  <div class="grid-container">
-    <ProductCard
-      v-for="product in products"
-      :key="product.code"
-      :title="product.details.name"
-      :price="product.priceInCents"
-      :image="product.image"
-    />
+  <div>
+    <BreadCrumb />
+    <div class="grid-container">
+      <ProductCard
+        v-for="product in products"
+        :key="product.code"
+        :product="product"
+      />
+    </div>
   </div>
 </template>
 
@@ -15,28 +15,10 @@
 import { ref, onMounted } from "vue";
 import ProductCard from "../components/ProductCard.vue";
 import { getData } from "../api/httpInstance";
-
-interface ProductDetails {
-  name: string;
-  description: string;
-}
-
-interface Product {
-  code: string;
-  name: string;
-  available: boolean;
-  visible: boolean;
-  details: ProductDetails;
-  priceInCents: number; // Modificado para number
-  salePriceInCents: number; // Modificado para number
-  rating: number;
-  image: string;
-  stockAvailable: boolean;
-}
+import BreadCrumb from "@/components/BreadCrumb.vue";
+import type { Product } from "@/api/interface"; // Importando a interface Product
 
 const products = ref<Product[]>([]);
-
-// Função para formatar o preço de centavos para reais
 
 const fetchProducts = async () => {
   try {
