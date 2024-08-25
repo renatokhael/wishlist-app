@@ -3,6 +3,10 @@
 
 @import "./components/header";
 @import "./components/productCard";
+@import "./components/breadCrumb";
+
+@import "./views/productListView";
+@import "./views/widhListView";
 
 * {
   box-sizing: border-box;

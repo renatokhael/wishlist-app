@@ -32,7 +32,6 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { defineProps } from "vue";
 import { useWishlistStore } from "@/stores/useWishlistStore";
 import { formatPrice } from "@/utils/formatPrice";
 import type { Product } from "@/api/interface";

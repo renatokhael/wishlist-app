@@ -29,23 +29,3 @@ const currentPath = computed(() => {
   }
 });
 </script>
-
-<style scoped>
-.breadcrumb {
-  font-size: 14px;
-  color: #5c2d91;
-  border-bottom: 1px solid #e0e0e0;
-  margin: 20px 0;
-  font-size: 16px;
-  text-decoration: none;
-}
-
-nav {
-  margin: 20px 0;
-}
-
-.breadcrumb .current {
-  font-weight: bold;
-  text-decoration: none;
-}
-</style>

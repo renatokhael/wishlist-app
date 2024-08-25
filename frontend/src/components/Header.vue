@@ -1,7 +1,9 @@
 <template>
   <header class="header">
     <div class="logo">
-      <img src="@/assets/logo.svg" alt="Logo" />
+      <router-link to="/"
+        ><img src="@/assets/logo.svg" alt="Logo"
+      /></router-link>
     </div>
     <nav class="nav">
       <router-link to="/wishlist" class="wishlist-link">

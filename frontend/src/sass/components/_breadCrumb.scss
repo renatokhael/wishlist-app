@@ -1,0 +1,18 @@
+.breadcrumb {
+  font-size: 14px;
+  color: $primary-color;
+  border-bottom: 1px solid $border-color;
+  margin: 20px 0;
+  font-size: 16px;
+  text-decoration: none;
+  padding-inline: 1rem;
+}
+
+nav {
+  margin: 20px 0;
+}
+
+.breadcrumb .current {
+  font-weight: bold;
+  text-decoration: none;
+}

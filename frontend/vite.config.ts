@@ -11,8 +11,8 @@ export default defineConfig({
     },
   },
   test: {
-    environment: "happy-dom", // Define o ambiente de teste como Happy DOM
-    globals: true, // Se estiver usando APIs globais do Vitest, como `describe`, `it`, etc.
-    // setupFiles: './setupTests.ts', // Remova ou comente essa linha se você não precisar de um setup
+    environment: "happy-dom",
+    globals: true,
+    setupFiles: "./vitest.setup.ts",
   },
 });

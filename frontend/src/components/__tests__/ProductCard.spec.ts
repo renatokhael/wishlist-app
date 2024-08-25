@@ -4,11 +4,14 @@ import ProductCard from "../ProductCard.vue";
 import { createTestingPinia } from "@pinia/testing";
 import { useWishlistStore } from "@/stores/useWishlistStore";
 import { formatPrice } from "@/utils/formatPrice";
-import type { Product } from "@/api/interface"; // Certifique-se de que o caminho está correto
+import type { Product } from "@/api/interface";
 
 // Mock do método formatPrice para evitar dupla formatação
 vi.mock("@/utils/formatPrice", () => ({
-  formatPrice: vi.fn().mockImplementation((price) => `${price},00`),
+  formatPrice: vi.fn().mockImplementation((price) => {
+    const formattedPrice = (price / 100).toFixed(2).replace(".", ",");
+    return `${formattedPrice}`;
+  }),
 }));
 
 describe("ProductCard.vue", () => {
@@ -47,8 +50,8 @@ describe("ProductCard.vue", () => {
     });
 
     wishlistStore = useWishlistStore();
-    wishlistStore.addProduct = vi.fn();
-    wishlistStore.removeProduct = vi.fn();
+    wishlistStore.addProduct = vi.fn(wishlistStore.addProduct);
+    wishlistStore.removeProduct = vi.fn(wishlistStore.removeProduct);
   });
 
   it("should render product details correctly", () => {
@@ -59,7 +62,7 @@ describe("ProductCard.vue", () => {
 
     expect(title.text()).toBe("Produto Teste");
     expect(originalPrice.text()).toBe("R$ 299,00");
-    expect(discountedPrice.text()).toBe("R$ 100,00"); // Verifique se o formatPrice está correto
+    expect(discountedPrice.text()).toBe("R$ 100,00");
     expect(image.attributes("src")).toBe("http://example.com/image.jpg");
     expect(image.attributes("alt")).toBe("Produto Teste");
   });
@@ -77,21 +80,23 @@ describe("ProductCard.vue", () => {
   });
 
   it("should remove product from wishlist when button is clicked if already added", async () => {
-    // Simula o produto já adicionado
-    wishlistStore.wishlist.push(productMock);
+    // Adiciona o produto usando a ação da store
+    await wishlistStore.addProduct(productMock);
 
     // Remontar o wrapper para refletir o estado atualizado da store
     await wrapper.setProps({ product: productMock });
 
     const addButton = wrapper.find("button.wishlist-button");
 
+    // Verificar se o botão possui a classe antes de remover
+    expect(addButton.classes()).toContain("wishlist-button--active");
+
     await addButton.trigger("click");
 
     expect(wishlistStore.removeProduct).toHaveBeenCalledTimes(1);
     expect(wishlistStore.removeProduct).toHaveBeenCalledWith(productMock.code);
 
-    const buttonClasses = addButton.classes();
-    expect(buttonClasses).not.toContain("wishlist-button--active");
+    expect(addButton.classes()).not.toContain("wishlist-button--active");
   });
 
   it("should not show active class on wishlist button initially", () => {
