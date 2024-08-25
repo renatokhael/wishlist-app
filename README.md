@@ -3,6 +3,8 @@
 No e-commerce o cliente pode realizar a busca de produtos, ou pode acessar a tela de detalhes do produto.
 Em ambas as telas ele pode selecionar os produtos de sua preferência e armazená-los na sua Wishlist. A qualquer momento o cliente pode visualizar sua Wishlist completa, com todos os produtos que ele selecionou em uma única tela.
 
+<img src=".github/01.jpg" />
+
 # O Projeto
 
 O projeto consiste em duas telas:
@@ -35,52 +37,34 @@ Para esse projeto foi utilizado Vue 3, um framework que já possui um rico ecoss
 
 Para o backend, foi utilizado Node com Express para criação de uma rota listando os produtos.
 
-## Type Support for `.vue` Imports in TS
+## Rodando localmente
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+### Primeiro rode a API
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
+Acesse o diretorio `backend`, e rode o comando:
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+Em seguida rode:
 
 ```sh
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+### Agora rode o FrontEnd
+
+Acesse o diretorio `frontend`, e rode o comando:
 
 ```sh
-npm run build
+npm install
 ```
 
-### Run Headed Component Tests with [Cypress Component Testing](https://on.cypress.io/component)
+Em seguida rode:
 
 ```sh
-npm run test:unit:dev # or `npm run test:unit` for headless testing
-```
-
-### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
-
-```sh
-npm run test:e2e:dev
-```
-
-This runs the end-to-end tests against the Vite development server.
-It is much faster than the production build.
-
-But it's still recommended to test the production build with `test:e2e` before deploying (e.g. in CI environments):
-
-```sh
-npm run build
-npm run test:e2e
+npm run dev
 ```
 
 ## Testes
