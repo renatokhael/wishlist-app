@@ -1,4 +1,4 @@
-# Wishlist Funcionalidade
+# Wishlist fullstack application
 
 No e-commerce o cliente pode realizar a busca de produtos, ou pode acessar a tela de detalhes do produto.
 Em ambas as telas ele pode selecionar os produtos de sua preferência e armazená-los na sua Wishlist. A qualquer momento o cliente pode visualizar sua Wishlist completa, com todos os produtos que ele selecionou em uma única tela.
@@ -19,7 +19,7 @@ O projeto consiste em duas telas:
 
 ## Tecnologias
 
-Para esse projeto foi utilizado Vue 3, um framework que já possui um rico ecossistema, sem a necessidade de bibliotecas externas (criadas pela comunidade). Foi utilizado o que há de mais moderno nesse framework:
+Neste projeto, utilizamos Vue 3, um framework com um ecossistema rico e robusto. Adotamos a arquitetura mais moderna disponível, utilizando Composition API, Single File Components (SFC) e o script setup para otimizar a organização do código. O gerenciamento de estado foi implementado com Pinia, e a persistência de dados foi garantida via LocalStorage. Para o roteamento, empregamos o Vue Router, enquanto os testes unitários e de componentes foram realizados com Vitest. Além disso, utilizamos SASS para estilização e TypeScript para aumentar a robustez e a qualidade do código.
 
 ### Front-End
 
@@ -29,11 +29,13 @@ Para esse projeto foi utilizado Vue 3, um framework que já possui um rico ecoss
 - [Vue-Router](https://router.vuejs.org/) - Expressive, configurable and convenient routing for Vue.js.
 - [Vitest](https://vitest.dev/) - A Vite-native testing framework. It's fast!
 - [Sass](https://sass-lang.com/) - Sass is the most mature, stable, and powerful professional grade CSS extension
+- [TypeScript](https://www.typescriptlang.org/)
 
 ### BackEnd
 
 - [Node](https://nodejs.org/pt)
 - [Express](https://expressjs.com/)
+- [TypeScript](https://www.typescriptlang.org/)
 
 Para o backend, foi utilizado Node com Express para criação de uma rota listando os produtos.
 
@@ -105,3 +107,5 @@ npm run test:coverage
 | **src/views**       | 82.97   | 60       | 100     | 82.97   |                   |
 | ProductListView.vue | 92.59   | 66.66    | 100     | 92.59   | 29-30             |
 | WishListView.vue    | 70      | 50       | 100     | 70      | 6-11              |
+
+Desenvolvido por [RenatoKhael](https://renatokhael.dev)
